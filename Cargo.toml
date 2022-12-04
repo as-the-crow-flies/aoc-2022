@@ -3,6 +3,9 @@ name = "aoc"
 version = "0.1.0"
 edition = "2021"
 
+[dependencies]
+itertools = "0.10"
+
 [[bin]]
 name = "01"
 path = "src/01.rs"
@@ -15,5 +18,6 @@ path = "src/02.rs"
 name = "03"
 path = "src/03.rs"
 
-[dependencies]
-itertools = "0.10"
+[[bin]]
+name = "04"
+path = "src/04.rs"
