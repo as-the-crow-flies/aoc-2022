@@ -16,3 +16,4 @@ name = "03"
 path = "src/03.rs"
 
 [dependencies]
+itertools = "0.10"

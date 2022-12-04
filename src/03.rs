@@ -1,8 +1,9 @@
-use std::collections::{HashSet};
+use std::collections::HashSet;
+use itertools::Itertools;
 
 fn set(s: &str) -> HashSet<char>
 {
-    HashSet::<_>::from_iter(s.chars())
+    s.chars().collect::<HashSet<_>>()
 }
 
 fn priority(item: char) -> u32
@@ -13,12 +14,23 @@ fn priority(item: char) -> u32
 
 fn main()
 {
-    let a1: u32 = include_str!("../input/03.txt")
+    let input = include_str!("../input/03.txt");
+
+    let a1: u32 = input
         .lines()
         .map(|line| line.split_at(line.len() / 2))
-        .map(|(left, right)| *(set(left).intersection(&set(right)).next().unwrap()))
+        .map(|(left, right)| *((&set(left) & &set(right)).iter().next().unwrap()))
         .map(priority)
         .sum();
 
+    let a2: u32 = input
+        .lines()
+        .map(set)
+        .tuples()
+        .map(|(x0, x1, x2)| *((&(&x0 & &x1) & &x2).iter().next().unwrap()))
+        .map(priority)
+        .sum();
+    
     println!("A1: {}", a1);
+    println!("A2: {}", a2);
 }
