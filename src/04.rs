@@ -1,18 +1,13 @@
-use itertools::Itertools;
-
 fn main()
 {
-    let pairs: Vec<_> = include_str!("../input/04.txt")
+    let pairs: Vec<((u32, u32), (u32, u32))> = include_str!("../input/04.txt")
         .lines()
-        .map(|line| line
-            .split(",")
-            .map(|elf| elf
-                .split("-")
-                .map(|x| x.parse::<u32>().unwrap())
-                .next_tuple()
-                .unwrap())
-            .next_tuple()
-            .unwrap())
+        .filter_map(|line| {
+            let (x, y) = line.split_once(",")?;
+            let (x0, x1) = x.split_once("-")?;
+            let (y0, y1) = y.split_once("-")?;
+            return Some(((x0.parse().ok()?, x1.parse().ok()?), (y0.parse().ok()?, y1.parse().ok()?)));
+        })
         .collect();
 
     let a1: u32 = pairs
